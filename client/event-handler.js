@@ -12,13 +12,21 @@ class Eventhandler {
 
     socketLogin() {
         $('#login-btn').on('click', ()=>{
-            $.post('/login', {name:$('#username').val()}, (data)=>{
+            let user = {name:$('#username').val()}
+            $.post('/login', user, (data)=>{
                 if (data) {
-                    socket.emit('login', )
+                    socket.emit('login', socket.id);
+                }
+                else {
+                    $.post('/register', user).then((data)=>{
+                        socket.emit('register', data, socket.id);
+                    });
                 }
             })
         })
     }
+
+
 }
 
 export default Eventhandler
