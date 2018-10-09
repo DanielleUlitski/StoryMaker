@@ -11,7 +11,7 @@ const story = require('./modules/storyModule');
 
 router.post('/login', (req, res) => {
     user.find({ "name": req.body.name }, (err, data) => {
-        if (err) res.send(err);
+        if (err) throw new error(err);
         if (data) res.send(true);
         res.send(false);
     })
