@@ -1,1 +1,4 @@
-const socket = io.connect('http://localhost');
+const socket = io.connect();
+socket.on('news', function(str) {
+    console.log(str);
+})
