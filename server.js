@@ -17,6 +17,15 @@ const user = require('./modules/userModule');
 const story = require('./modules/storyModule');
 const users = [];
 
+function findWithAttr(array, attr, value) {
+    for(let i = 0; i < array.length; i ++) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 user.find((err, data)=>{
     if(err) return err;
     for(let user of data) {
@@ -34,5 +43,7 @@ io.on('disconnect', (socket)=>{
     console.log('disconnected');
 })
 
-io.on('login', ()=>{})
+io.on('login', (data ,sessionId)=>{
+    users[findWithAttr(users, name, data.name)].session = sessionId;
+})
 
