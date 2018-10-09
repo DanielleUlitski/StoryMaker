@@ -5,23 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="..\..\node_modules\bootstrap\dist\css\bootstrap.css">
+    <link rel="stylesheet" href=".\bootstrap\dist\css\bootstrap.css">
     <link rel="stylesheet" type="text/css" media="screen" href="..\main.css" />
 </head>
 <body>
     <div class="container">
-        <div class="nav-bar text-center"></div>
+        <div class="nav-bar text-center"></div> <!-- user-template -->
         <div class="header">
             <button type="button" class="btn btn-light" id="save-story">save</button>
         </div>
         <div class="body story-body">
-            <div id="story-screen"></div>
+            <div id="story-screen"></div> <!-- sentence-template -->
             <div class="input-group mb-3" id="add-sentence-form">
-                <input type="text" class="form-control" id="sentence">
+                <input type="text" class="form-control" id="sentence-input">
                 <button type="button" class="btn btn-success" id="send-sentence">send</button>
             </div>
         </div>
     </div>
+
+    <script id="user-template" type="text/x-handlebars-template">
+        {{#each users}}
+            <p>{{name}}</p>
+        {{/each}}
+    </script>
+
+    <script id="sentence-template" type="text/x-handlebars-template">
+        {{#each sentences}}
+            <div class="user-sentence">
+                <p class="sentence">{{name}}: {{text}}</p>
+                <img src="{{image}}">
+            </div>
+        {{/each}}
+    </script>
+
     <script src="main.js"></script>    
 </body>
 </html>
