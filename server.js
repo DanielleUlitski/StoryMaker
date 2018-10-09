@@ -3,8 +3,15 @@ const path = require('path');
 const router = require('./router');
 const mongoose = require('mongoose');
 const app = express();
+const server = app.listen(8000);
+const io = require('socket.io').listen(server);
 
-const StoryMaker = mongoose.connect('mongodb://localhost:27017/storymakerdb',(err)=>{
+
+io.on('connection', function (socket) {
+    console.log('a user connected');
+});
+
+const StoryMaker = mongoose.connect('mongodb://localhost:27017/storymakerdb', (err) => {
     if (err) console.log(err);
     else console.log('connection established!!!')
 });
@@ -16,4 +23,3 @@ const story = require('./modules/storyModule');
 app.use(express.static(path.join(__dirname, 'client')))
 app.use(express.static(path.join(__dirname, 'node_modules')))
 
-app.listen(8000);
