@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href=".\bootstrap\dist\css\bootstrap.css">
+    <!-- <link rel="stylesheet" href=".\bootstrap\dist\css\bootstrap.css"> -->
+    <link rel="stylesheet" href="..\node_modules\bootstrap\dist\css\bootstrap.css">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 </head>
 
@@ -17,7 +18,7 @@
             <p class="nav-item">my stories</p>
         </div>
         <div class="header">
-            <button type="button" class="btn btn-light" id="login-btn" data-toggle="modal" data-target="#myModal">log-in</button>
+            <button type="button" class="btn btn-outline-primary" id="login-btn" data-toggle="modal" data-target="#login-modal">log-in</button>
         </div>
         <div class="body">
             <h1>Story Maker</h1>
@@ -25,7 +26,7 @@
         </div>
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal" tabindex="-1" role="dialog" id="login-modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -36,17 +37,36 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="input-group mb-3" id="add-sentence-form">
+                    <div class="input-group mb-3">
                         <input type="text" id="username">
-                        <button type="button" class="btn btn-primary">Log-in</button>
+                        <button type="button" class="btn btn-outline-primary" id="login-btn-modal">Log-in</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src=".\jquery\dist\jquery.js"></script>
-    <script src=".\bootstrap\dist\js\bootstrap.js"></script>
+    <div class="modal" tabindex="-1" role="dialog" id="receive-invite-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">You got an invite!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" id="accept-invite-btn">Accept invite</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src=".\jquery\dist\jquery.js"></script> -->
+    <script src="..\node_modules\jquery\dist\jquery.js"></script>
+    <!-- <script src=".\bootstrap\dist\js\bootstrap.js"></script> -->
+    <script src="..\node_modules\bootstrap\dist\js\bootstrap.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="main.js"></script>
 </body>
