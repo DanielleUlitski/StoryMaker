@@ -5,10 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <link rel="stylesheet" href="..\..\node_modules\bootstrap\dist\css\bootstrap.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="..\main.css" />
 </head>
 <body>
-    
+    <div class="container">
+        <div class="nav-bar text-center"></div>
+        <div class="header">
+            <button type="button" class="btn btn-light" id="save-story">save</button>
+        </div>
+        <div class="body story-body">
+            <div id="story-screen"></div>
+            <div class="input-group mb-3" id="add-sentence-form">
+                <input type="text" class="form-control" id="sentence">
+                <button type="button" class="btn btn-success" id="send-sentence">send</button>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>    
 </body>
 </html>
