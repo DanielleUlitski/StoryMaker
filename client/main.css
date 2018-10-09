@@ -1,0 +1,52 @@
+.container {
+  display: grid;
+  height: 100vh;
+  width: 100%;
+  grid-template-columns: 1fr 10fr;
+  grid-template-rows: 1fr 10fr;
+  grid-template-areas: "h h" "n b";
+}
+
+.nav-bar {
+  grid-area: n;
+}
+
+.nav-bar p {
+  cursor: pointer;
+}
+
+.header {
+  grid-area: h;
+}
+
+.header button {
+  float: right;
+  margin: 20px;
+}
+
+.body {
+  grid-area: b;
+  padding: 30px;
+}
+
+.story-body {
+  display: grid;
+  grid-template-rows: 8fr 1fr;
+  grid-template-areas: "s" "i";
+}
+
+#story-screen {
+  grid-area: s;
+}
+
+#add-sentence-form {
+  grid-area: i;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+/*# sourceMappingURL=main.css.map */
