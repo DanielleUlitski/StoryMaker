@@ -2,18 +2,12 @@ class Eventhandler {
     constructor(datamanager, renderer) {
         this.datamanager = datamanager;
         this.renderer = renderer;
+        this.session = null
     }
 
     socketConnect() {
         const socket = io.connect();
-        socket.on('news', function (str) {
-            console.log(str);
-        })
-        socket.on('connect', function(data){
-            console.log("called connect");
-            console.log(user_id);
-            socket.emit('init', user_id);
-        });
+        this.session = socket
     }
 
     socketLogin() {
@@ -25,7 +19,6 @@ class Eventhandler {
             })
         })
     }
-    
 }
 
 export default Eventhandler

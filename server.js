@@ -27,8 +27,7 @@ user.find((err, data)=>{
 io.on('connection', function (socket) {
     console.log('a user connected');
     console.log(socket.id)
-    // io.emit('news', 'its a wonderfull day!')
-    io.emit('connect', )
+    io.emit('id', socket.id)
 });
 
 io.on('disconnect', (socket)=>{
