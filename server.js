@@ -43,7 +43,10 @@ io.on('disconnect', (socket)=>{
     console.log('disconnected');
 })
 
-io.on('login', (data ,sessionId)=>{
-    users[findWithAttr(users, name, data.name)].session = sessionId;
+io.on('login', (user ,sessionId)=>{
+    users[findWithAttr(users, name, user.name)].session = sessionId;
 })
 
+io.on('register', (user, sessionId)=>{
+    users.push({username: user.name, session: sessionId});
+})
