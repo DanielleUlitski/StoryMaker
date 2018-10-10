@@ -16,12 +16,8 @@ class Eventhandler {
         $('#login-btn-modal').on('click', () => {
             let user = { name: $('#username').val() }
             this.datamanager.login(user).then((data) => {
-                // if (data) {
-                // this.socket.emit('register', data, this.socket.id);
-                // } else {
                 this.socket.emit('login', data, this.socket.id);
                 this.renderer.renderNewUser(data.name);
-                // }
             })
         })
     }
@@ -74,10 +70,7 @@ class Eventhandler {
         })
         $('#main-screen').on('click', "#send-sentence", () => {
             let sentence = $('#sentence-input').val();
-            let storyId = $('#story-container').data('id')
-            // this.datamanager.saveSentence(sentence, storyId).then((story)=>{
-            //     this.renderer.renderStory(story)
-            // })
+            let storyId = $('#story-container').data('id');
             this.socket.emit('sentence', sentence, storyId);            
         })
     }

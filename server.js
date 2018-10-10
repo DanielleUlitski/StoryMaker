@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-// const mongoose = require('mongoose');
 const app = express();
 const server = app.listen(8000);
 const io = require('socket.io').listen(server);
@@ -57,15 +56,6 @@ io.sockets.on('connection', function (socket) {
         socket.join('Lobby')
         console.log(socket.room);
     })
-
-    // socket.on('register', (user, sessionId) => {
-    //     users.push({ username: user.name, session: sessionId });
-    //     socket.username = user.name;
-    //     usernames[user.name] = user.name;
-    //     socket.room = 'Lobby'
-    //     socket.join('Lobby')
-    //     console.log(socket);
-    // })
 
     socket.on('makeRoom', (newRoom) => {
         socket.leaveAll();
