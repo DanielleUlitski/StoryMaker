@@ -1,7 +1,12 @@
 import Eventhandler from './event-handler.js'
+import DataManager from './datamanager.js'
+import Renderer from './renderer.js'
 
-const eventHandler = new Eventhandler()
+const dataManager = new DataManager();
+const renderer = new Renderer();
+const eventHandler = new Eventhandler(dataManager, renderer);
 
 eventHandler.socketConnect();
 eventHandler.socketLogin();
-eventHandler.printSocket();
+eventHandler.newStory();
+eventHandler.sentenceHandle();
