@@ -26,14 +26,16 @@ class Eventhandler {
 
     async newStory() {
         $('#new-story').on('click', () => {
-            this.storyId = await this.datamanager.newStory();
-            
+            let newRoomInfo = await this.datamanager.newStory();
+            this.storyId = newRoomInfo.storyId;
+            this.socket.emit('makeRoom', this.storyId);
+            this.renderer.renderNewStory(this.storyId);
         })
     }
 
     sentenceHandle() {
         $('#send-sentence').on('click', () => {
-
+            
         })
     }
 

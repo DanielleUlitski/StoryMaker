@@ -16,37 +16,66 @@ const sentence = require('./modules/sentenceModule');
 const user = require('./modules/userModule');
 const story = require('./modules/storyModule');
 const users = [];
+const rooms = ['Lobby'];
+const usernames = {}
 
 function findWithAttr(array, attr, value) {
-    for(let i = 0; i < array.length; i ++) {
-        if(array[i][attr] === value) {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i][attr] === value) {
             return i;
         }
     }
     return -1;
 }
 
-user.find((err, data)=>{
-    if(err) return err;
-    for(let user of data) {
-        users.push({username: user.name, session: null});
+user.find((err, data) => {
+    if (err) return err;
+    for (let user of data) {
+        users.push({ username: user.name, session: null });
     }
 })
 
-io.on('connection', function (socket) {
+io.sockets.on('connection', function (socket) {
     console.log('a user connected');
     console.log(socket.id)
-    io.emit('id', socket.id)
+    socket.emit('id', socket.id)
+
+    socket.on('disconnect', () => {
+        delete usernames[socket.username]
+        socket.leaveAll();
+        console.log('disconnected');
+    })
+
+    socket.on('login', (user, sessionId) => {
+        users[findWithAttr(users, name, user.name)].session = sessionId;
+        socket.username = user.name;
+        usernames[user.name] = user.name;
+        socket.room = 'Lobby'
+        socket.join('Lobby')
+    })
+
+    socket.on('register', (user, sessionId) => {
+        users.push({ username: user.name, session: sessionId });
+        socket.join('Lobby')
+    })
+
+    socket.on('makeRoom', (newRoom) => {
+        socket.leaveAll();
+        rooms.push(newRoom)
+        socket.join(newRoom)
+        socket.room = newRoom
+    })
+
+    socket.on('joinRoom', (newRoom) => {
+        socket.leaveAll();
+        socket.join(newRoom)
+        socket.room = newRoom
+    })
+
+    socket.on('finishStory', (thisStory) => {
+        socket.leaveAll();
+        socket.join('Lobby');
+        socket.room = 'Lobby'
+        rooms.splice(rooms.indexOf(thisStory),1);
+    })
 });
-
-io.on('disconnect', (socket)=>{
-    console.log('disconnected');
-})
-
-io.on('login', (user ,sessionId)=>{
-    users[findWithAttr(users, name, user.name)].session = sessionId;
-})
-
-io.on('register', (user, sessionId)=>{
-    users.push({username: user.name, session: sessionId});
-})

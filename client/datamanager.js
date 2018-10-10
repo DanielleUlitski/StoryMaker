@@ -23,7 +23,7 @@ class DataManager {
 
     newStory() {
         $.post('/newStory', this.user, (storyId) => {
-            return storyId
+            return {storyId: storyId, user: this.user}
         })
     }
 
