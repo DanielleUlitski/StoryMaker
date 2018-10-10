@@ -13,8 +13,8 @@
 <body>
     <div class="container">
         <div class="nav-bar text-center">
-            <button type="button" class="nav-item btn btn-outline-secondary" id="new-story">new story</button>
-            <button type="button" class="nav-item btn btn-outline-secondary" id="show-stories">my stories</button>
+            <button type="button" class="nav-item btn btn-outline-secondary" id="new-story" disabled>new story</button>
+            <button type="button" class="nav-item btn btn-outline-secondary" id="show-stories" disabled>my stories</button>
         </div>
         <div class="header">
             <button type="button" class="btn btn-outline-primary header-item" id="login-btn" data-toggle="modal"
@@ -105,7 +105,7 @@
     <script id="sentence-template" type="text/x-handlebars-template">
         {{#each sentences}}
             <div class="user-sentence">
-                <p class="sentence">{{name}}: {{text}}</p>
+                <p class="sentence">{{name}}- {{text}}</p>
                 <img src="{{image}}">
             </div>
         {{/each}}

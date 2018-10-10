@@ -34,7 +34,9 @@ class Eventhandler {
     sendInvite() {
         $("#send-invite-btn").on('click', () => {
             let username = $("#invite-username").val();
-            this.socket.emit('sendinvite', username, this.storyId)
+            this.socket.emit('sendinvite', username, this.storyId);
+            $("#invite-username").val('');
+            $('#send-invite-modal').modal('hide');
         })
     }
 
@@ -48,6 +50,7 @@ class Eventhandler {
     declineInvite() {
         $('#decline-invite').on('click', () => {
             this.roomInvite = null;
+            $('#receive-invite-modal').modal('hide');
         })
     }
 
@@ -55,6 +58,7 @@ class Eventhandler {
         this.socket.on('roomJoined', (story) => {
             this.renderer.renderNewStory(story._id);
             this.renderer.renderStory(story);
+            $('#receive-invite-modal').modal('hide');
         })
         $('#accept-invite').on('click', () => {
             this.socket.emit('joinRoom', this.roomInvite);
@@ -72,6 +76,29 @@ class Eventhandler {
             let sentence = $('#sentence-input').val();
             let storyId = $('#story-container').data('id');
             this.socket.emit('sentence', sentence, storyId);            
+        })
+    }
+
+    submitOnEnter() {
+        $('#main-screen').on('keyup', '#sentence-input', (event) => {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                $('#send-sentence').click();
+            }
+        })
+
+        $('#username').on('keyup', (event) => {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                $('#login-btn-modal').click();
+            }
+        })
+
+        $('#invite-username').on('keyup', (event) => {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                $('#send-invite-btn').click();
+            }           
         })
     }
 }

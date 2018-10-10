@@ -27,6 +27,7 @@ class Renderer {
         let sentences = story.sentences;
         const newHTML = template({sentences});
         $('#story-screen').empty().append(newHTML);
+        $('#sentence-input').val('');
     }
 
     renderAllStories(stories) {
@@ -38,6 +39,8 @@ class Renderer {
     renderNewUser(username) {
         $('#login-modal').modal('hide');
         $('.header').empty().append(`<span class='header-item'> Hi ${username}</span>`);
+        $('#new-story').removeAttr('disabled');
+        $('#show-stories').removeAttr('disabled');
     }
 
     renderInvite(username) {
