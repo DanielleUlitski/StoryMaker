@@ -69,15 +69,19 @@ io.sockets.on('connection', function (socket) {
         socket.leaveAll();
         socket.join(newRoom)
         socket.room = newRoom
-        console.log(socket.room);
+        // console.log(socket.room);
         let userIndex = findWithAttr(users, 'username', socket.username)
         story.findOne({ "_id": newRoom }, (err, data) => {
             if (err) throw new Error(err);
             data.users.push(users[userIndex].userId)
             data.save();
-        }).populate('users').exec((err, story) => {
-            if (err) throw new Error(err);
-            socket.emit('roomJoined', story);
+            // console.log(data);
+        }).then(() => {
+            story.findOne({ '_id': newRoom }).populate('users').exec((err, story) => {
+                if (err) throw new Error(err);
+                // console.log(story);
+                io.sockets.in(newRoom).emit('roomJoined', story);
+            })
         })
     })
 
@@ -93,11 +97,15 @@ io.sockets.on('connection', function (socket) {
         io.to(`${socketId}`).emit('invite', roomId, socket.username)
     })
 
-    socket.on('sentence', (sentence, storyId) => {
-        story.findOne({ "_id": storyId }, (err, data)=>{
-            data.sentences.push({text: sentence, image: ""});
+    socket.on('sentence', (line, storyId) => {
+        story.findOne({ "_id": storyId }, (err, data) => {
+            data.sentences.push({ text: line.sentence, image: line.image });
             data.save()
-            io.sockets.in(storyId).emit('updateSentence', data);
+        }).then(() => {
+            story.findOne({ '_id': storyId }).populate('users').exec((err, res) => {
+                console.log(res)
+                io.sockets.in(storyId).emit('updateSentence', res);
+            })
         })
     })
 });
