@@ -2,28 +2,46 @@ class Eventhandler {
     constructor(datamanager, renderer) {
         this.datamanager = datamanager;
         this.renderer = renderer;
-        this.session = null
+        this.storyId = null;
+        this.socket = null;
     }
 
     socketConnect() {
         const socket = io.connect();
-        this.session = socket
+        this.socket = socket
     }
 
     socketLogin() {
         $('#login-btn').on('click', () => {
             let user = { name: $('#username').val() }
             this.datamanager.login(user).then((data) => {
-                if (data instanceof Boolean) {
-                    this.session.emit('login', this.session.id);
+                if (data.isNew) {
+                    this.socket.emit('register', data.user, this.socket.id);
                 } else {
-                    this.session.emit('register', data, this.session.id);
+                    this.socket.emit('login', data.user, this.socket.id);
                 }
             })
         })
     }
 
+    async newStory() {
+        $('#new-story').on('click', () => {
+            let newRoomInfo = await this.datamanager.newStory();
+            this.storyId = newRoomInfo.storyId;
+            this.socket.emit('makeRoom', this.storyId);
+            this.renderer.renderNewStory(this.storyId);
+        })
+    }
 
+    sentenceHandle() {
+        $('#send-sentence').on('click', () => {
+            
+        })
+    }
+
+    printSocket() {
+        console.log(this.socket);
+    }
 }
 
 export default Eventhandler

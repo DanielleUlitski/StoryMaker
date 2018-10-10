@@ -12,7 +12,7 @@ const story = require('./modules/storyModule');
 router.post('/login', (req, res) => {
     user.find({ "name": req.body.name }, (err, data) => {
         if (err) throw new error(err);
-        if (data) res.send(true);
+        if (data) res.send(data);
         res.send(false);
     })
 })
@@ -38,6 +38,10 @@ router.get('/thisStory/:id', (req, res) => {
         if(err) res.send(err)
         res.send(data);
     })
+})
+
+router.post('/newSentence', (req, res) => {
+
 })
 
 module.exports = router
