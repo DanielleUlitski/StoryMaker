@@ -8,16 +8,20 @@
     grid-template-columns: 1fr 5fr;
     grid-template-rows: 1fr 7fr;
     grid-template-areas:
-    "h h"
+    "n h"
     "n b";
+    background-color: #dff1f7;
 }
 
 .nav-bar {
     grid-area: n;
+    padding-top: 60px;
+    // border-right: 1px solid black;
 }
 
-.nav-bar p {
-    cursor: pointer;
+.nav-item {
+    width: 80%;
+    margin-top: 30px;
 }
 
 .header {
@@ -26,7 +30,7 @@
     justify-content: flex-end;
 }
 
-.header button{
+.header-item{
     margin: 20px;
 }
 
@@ -37,6 +41,29 @@
 .body {
     grid-area: b;
     padding: 30px;
+}
+
+.body h1 {
+    margin-bottom: 40px;
+}
+
+// my stories
+
+.comics {
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+
+.box {
+    height: 150px;
+    width: 150px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 3px;
 }
 
 // story screen

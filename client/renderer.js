@@ -18,7 +18,9 @@ class Renderer {
     }
 
     renderAllStories(stories) {
-
+        const template = Handlebars.compile(this.$storiesTemplate);
+        const newHTML = template({stories});
+        $('#main-screen').empty().append(newHTML); // ????
     }
 }
 
