@@ -9,4 +9,8 @@ const eventHandler = new Eventhandler(dataManager, renderer);
 eventHandler.socketConnect();
 eventHandler.socketLogin();
 eventHandler.newStory();
+eventHandler.sendInvite();
+eventHandler.recieveInvite();
+eventHandler.declineInvite();
+eventHandler.acceptInvite();
 eventHandler.sentenceHandle();

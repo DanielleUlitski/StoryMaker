@@ -31,7 +31,7 @@ function findWithAttr(array, attr, value) {
 user.find((err, data) => {
     if (err) return err;
     for (let user of data) {
-        users.push({ username: user.name, session: null });
+        users.push({ username: user.name, session: null, userId: user._id });
     }
 })
 
@@ -47,16 +47,16 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('login', (user, sessionId) => {
-        if (users.includes({username: user.name})) {
-            users[findWithAttr(users, name, user.name)].session = sessionId;
+        if (findWithAttr(users, 'username', user.name) != -1) {
+            users[findWithAttr(users, 'username', user.name)].session = sessionId;
         } else {
-            users.push({ username: user.name, session: sessionId });
+            users.push({ username: user.name, session: sessionId, userId: user._id });
         }
         socket.username = user.name;
         usernames[user.name] = user.name;
         socket.room = 'Lobby'
         socket.join('Lobby')
-        console.log(usernames);
+        console.log(socket.room);
     })
 
     // socket.on('register', (user, sessionId) => {
@@ -73,18 +73,30 @@ io.sockets.on('connection', function (socket) {
         rooms.push(newRoom)
         socket.join(newRoom)
         socket.room = newRoom
+        console.log(socket.room);
     })
 
     socket.on('joinRoom', (newRoom) => {
         socket.leaveAll();
         socket.join(newRoom)
         socket.room = newRoom
+        let userIndex = findWithAttr(users, 'username', socket.username)
+        story.find({ "_id": newRoom }, (err, data) => {
+            if (err) throw new Error(err);
+            data.users.push(users[userIndex].userId)
+            socket.emit('roomJoined', data);
+        })
     })
 
     socket.on('finishStory', (thisStory) => {
         socket.leaveAll();
         socket.join('Lobby');
         socket.room = 'Lobby'
-        rooms.splice(rooms.indexOf(thisStory),1);
+        rooms.splice(rooms.indexOf(thisStory), 1);
+    })
+
+    socket.on('sendinvite', (username, roomId) => {
+        let socketId = users[findWithAttr(users, 'username', username)].session;
+        io.to(`${socketId}`).emit('invite', roomId, socket.username)
     })
 });
