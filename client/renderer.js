@@ -29,6 +29,11 @@ class Renderer {
         const newHTML = template({stories});
         $('#main-screen').empty().append(newHTML); // ????
     }
+
+    renderNewUser(username) {
+        $('#login-modal').modal('hide');
+        $('.header').empty().append(`<span class='header-item'> Hi ${username}</span>`);
+    }
 }
 
 export default Renderer;
