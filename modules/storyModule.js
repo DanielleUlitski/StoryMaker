@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const sentence = require('./sentenceModule');
 const user = require('./userModule');
 
 const StorySchema = new mongoose.Schema({
