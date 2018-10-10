@@ -5,36 +5,27 @@ class DataManager {
     }
 
    async login(user) {
-       let data = await $.post('/login', user)//.then((data) => {
-            // console.log(data);
+       let data = await $.post('/login', user)
             if (data) {
                 this.userConnected = true;
                 this.user = data
                 return this.user
             }
             else {
-                // console.log(user)
-               let newUser =await $.post('/register', user)//.then((newUser) => {
+               let newUser =await $.post('/register', user)
                     console.log(newUser);
                     this.userConnected = true;
                     this.user = newUser
                     let isNew = true;
                     return newUser
-                // });
             }
-        // }/)
     }
 
     async newStory() {
         debugger;
-        let storyId = await $.post('/newStory', this.user)//.then((storyId) => {
-        // })
+        let storyId = await $.post('/newStory', this.user)
         return {storyId: storyId, user: this.user}
     }
-
-    // async saveSentence(sentence, storyId) {
-    //     return await $.post('/newSentence', {sentence: sentence, story: storyId})
-    // }
 }
 
 export default DataManager;
