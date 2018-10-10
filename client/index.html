@@ -13,15 +13,16 @@
 <body>
     <div class="container">
         <div class="nav-bar text-center">
-            <p class="nav-item">new story</p>
-            <p class="nav-item">my stories</p>
+            <button type="button" class="nav-item btn btn-outline-secondary" id="new-story">new story</button>
+            <button type="button" class="nav-item btn btn-outline-secondary" id="show-stories">my stories</button>
         </div>
         <div class="header">
-            <button type="button" class="btn btn-outline-primary" id="login-btn" data-toggle="modal" data-target="#login-modal">log-in</button>
+            <button type="button" class="btn btn-outline-primary header-item" id="login-btn" data-toggle="modal" data-target="#login-modal">log-in</button>
         </div>
-        <div class="body">
-            <h1>Story Maker</h1>
-            <p id="app-info">blah blah blah</p>
+        <div class="body" id="main-screen"> <!-- stories-template -->
+            <h1>Create your story!</h1>
+            <p>Log in and start a new story, or wait for an invite from a friend.</p>
+            <p>With StoryMaker you can finally get a funny comics matched to your stories.</p>
         </div>
     </div>
 
@@ -62,12 +63,22 @@
         </div>
     </div>
 
+    <script id="stories-template" type="text/x-handlebars-template">
+        {{#each stories}}
+            <div class="comics">
+                {{#each sentences}}
+                    <div class="box" style="background-image: url({{image}})">
+                        {{text}}
+                    </div>
+                {{/each}}
+            </div>
+        {{/each}}
+    </script>
+
     <script src=".\jquery\dist\jquery.js">  </script>
     <script src=".\bootstrap\dist\js\bootstrap.js"></script>
+    <script src=".\handlebars\dist\handlebars.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script type="module" src="renderer.js"></script>
-    <script type="module" src="datamanager.js"></script>
-    <script type="module" src="event-handler.js"></script>
     <script type="module" src="main.js"></script>
 </body>
 

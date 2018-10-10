@@ -14,8 +14,8 @@
     <div class="container">
         <div class="nav-bar text-center" id="users-list"></div> <!-- user-template -->
         <div class="header">
-            <button type="button" class="btn btn-outline-secondary" id="send-invite" data-toggle="modal" data-target="#send-invite-modal">invite</button>
-            <button type="button" class="btn btn-outline-success" id="save-story">save</button>
+            <button type="button" class="btn btn-outline-secondary header-item" id="send-invite" data-toggle="modal" data-target="#send-invite-modal">invite</button>
+            <button type="button" class="btn btn-outline-success header-item" id="save-story">save</button>
         </div>
         <div class="body story-body">
             <div id="story-screen"></div> <!-- sentence-template -->
@@ -48,7 +48,7 @@
 
     <script id="users-template" type="text/x-handlebars-template">
         {{#each users}}
-            <p>{{name}}</p>
+            <p class="nav-item">{{name}}</p>
         {{/each}}
     </script>
 
