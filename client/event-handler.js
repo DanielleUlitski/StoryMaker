@@ -68,10 +68,12 @@ class Eventhandler {
             debugger;
             this.renderer.renderStory(data);
         })
-        $('#main-screen').on('click', "#send-sentence", () => {
+        $('#main-screen').on('click', "#send-sentence", async () => {
             let sentence = $('#sentence-input').val();
+            $('#sentence-input').val('');
             let storyId = $('#story-container').data('id');
-            this.socket.emit('sentence', sentence, storyId);            
+            // let image = await $.get(`https://www.googleapis.com/customsearch/v1?key=AIzaSyC70YzagFxuujLqGjyE16e2NjG-sy5ivl8&cx=014991769965957097369:ffltd_cexyk&q=${sentence}&searchType=Image`)
+            this.socket.emit('sentence', sentence, storyId);      
         })
     }
 }
