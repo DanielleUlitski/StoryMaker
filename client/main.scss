@@ -16,7 +16,6 @@
 .nav-bar {
     grid-area: n;
     padding-top: 60px;
-    // border-right: 1px solid black;
 }
 
 .nav-item {
@@ -40,7 +39,7 @@
 
 .body {
     grid-area: b;
-    padding: 30px;
+    // padding: 30px;
 }
 
 .body h1 {
@@ -68,30 +67,39 @@
 
 // story screen
 
-.story-body {
+#story-container {
+    background-color: #dff1f7;
     display: grid;
-    width: 90%;
+    grid-template-columns: 7fr 1fr;
     grid-template-rows: 8fr 1fr;
     grid-template-areas:
-    "s"
-    "i";
+    "ss sn"
+    "si sn";
+    grid-gap: 5px;
+    height: 100vh;
 }
 
 #story-screen {
-    grid-area: s;
-    margin-bottom: 30px;
+    grid-area: ss;
+    margin-bottom: 20px;
     border: 1px solid black;
     border-radius: 10px;
     box-shadow: -2px -3px 9px 3px gray;
 }
 
+#story-nav-bar {
+    grid-area: sn;
+    display: flex;
+    flex-direction: column;
+}
+
 #add-sentence-form {
-    grid-area: i;
+    grid-area: si;
 }
 
 iframe {
-    width: 100%;
-    height: 100%;
+    width: 95%;
+    height: 95%;
 }
 
 * {
