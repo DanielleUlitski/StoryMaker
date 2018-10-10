@@ -36,7 +36,7 @@ router.post('/register', (req, res) => {
 })
 
 router.post('/newStory', (req, res) => {
-    let newStory = new story({sentences: [], users: [req.body._id]});
+    let newStory = new story({ sentences: [], users: [req.body._id] });
     newStory.save();
     console.log(newStory);
     res.send(newStory._id);
@@ -49,8 +49,8 @@ router.get('/thisStory/:id', (req, res) => {
     })
 })
 
-router.post('/newSentence', (req, res) => {
-
+router.post('/saveStory', (req, res) => {
+    
 })
 
 module.exports = router
