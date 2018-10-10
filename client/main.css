@@ -61,10 +61,10 @@
 #story-container {
   background-color: #dff1f7;
   display: grid;
-  grid-template-columns: 7fr 1fr;
-  grid-template-rows: 8fr 1fr;
+  grid-template-columns: 6fr 1fr;
+  grid-template-rows: 7fr 1fr;
   grid-template-areas: "ss sn" "si sn";
-  grid-gap: 5px;
+  grid-column-gap: 10px;
   height: 100vh;
 }
 
@@ -73,7 +73,6 @@
   margin-bottom: 20px;
   border: 1px solid black;
   border-radius: 10px;
-  box-shadow: -2px -3px 9px 3px gray;
 }
 
 #story-nav-bar {
@@ -86,9 +85,19 @@
   grid-area: si;
 }
 
+#sentence-input {
+  width: 92%;
+  line-height: 2rem;
+}
+
+#send-sentence {
+  height: 40px;
+}
+
 iframe {
   width: 95%;
   height: 95%;
+  border: none;
 }
 
 * {

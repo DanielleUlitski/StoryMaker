@@ -28,12 +28,17 @@ class Renderer {
     renderAllStories(stories) {
         const template = Handlebars.compile(this.$storiesTemplate);
         const newHTML = template({stories});
-        $('#main-screen').empty().append(newHTML); // ????
+        $('#main-screen').empty().append(newHTML);
     }
 
     renderNewUser(username) {
         $('#login-modal').modal('hide');
         $('.header').empty().append(`<span class='header-item'> Hi ${username}</span>`);
+    }
+
+    renderInvite(username) {
+        $('#invite-modal-title').html(`You were invited by ${username}!`);
+        $('#receive-invite-modal').modal('toggle');
     }
 }
 
