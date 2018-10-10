@@ -11,16 +11,13 @@ class Eventhandler {
     }
 
     socketLogin() {
-        $('#login-btn').on('click', ()=>{
-            let user = {name:$('#username').val()}
-            $.post('/login', user, (data)=>{
-                if (data) {
-                    socket.emit('login', socket.id);
-                }
-                else {
-                    $.post('/register', user).then((data)=>{
-                        socket.emit('register', data, socket.id);
-                    });
+        $('#login-btn').on('click', () => {
+            let user = { name: $('#username').val() }
+            this.datamanager.login(user).then((data) => {
+                if (data instanceof Boolean) {
+                    this.session.emit('login', this.session.id);
+                } else {
+                    this.session.emit('register', data, this.session.id);
                 }
             })
         })
