@@ -47,17 +47,26 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('login', (user, sessionId) => {
-        users[findWithAttr(users, name, user.name)].session = sessionId;
+        if (users.includes({username: user.name})) {
+            users[findWithAttr(users, name, user.name)].session = sessionId;
+        } else {
+            users.push({ username: user.name, session: sessionId });
+        }
         socket.username = user.name;
         usernames[user.name] = user.name;
         socket.room = 'Lobby'
         socket.join('Lobby')
+        console.log(usernames);
     })
 
-    socket.on('register', (user, sessionId) => {
-        users.push({ username: user.name, session: sessionId });
-        socket.join('Lobby')
-    })
+    // socket.on('register', (user, sessionId) => {
+    //     users.push({ username: user.name, session: sessionId });
+    //     socket.username = user.name;
+    //     usernames[user.name] = user.name;
+    //     socket.room = 'Lobby'
+    //     socket.join('Lobby')
+    //     console.log(socket);
+    // })
 
     socket.on('makeRoom', (newRoom) => {
         socket.leaveAll();

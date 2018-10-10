@@ -15,7 +15,8 @@ class Renderer {
     renderNewStory(id) {
         const template = Handlebars.compile(this.$newStoryTemplate);
         const newHTML = template({id});
-        $('#main-sceen').empty().append(newHTML);
+        console.log(newHTML);
+        $('#main-screen').empty().append(newHTML);
     }
 
     renderStory(sentences) {
@@ -28,6 +29,11 @@ class Renderer {
         const template = Handlebars.compile(this.$storiesTemplate);
         const newHTML = template({stories});
         $('#main-screen').empty().append(newHTML); // ????
+    }
+
+    renderNewUser(username) {
+        $('#login-modal').modal('hide');
+        $('.header').empty().append(`<span class='header-item'> Hi ${username}</span>`);
     }
 }
 

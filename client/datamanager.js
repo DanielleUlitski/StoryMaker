@@ -4,27 +4,32 @@ class DataManager {
         this.user = null
     }
 
-    login(user) {
-        $.post('/login', user, (data) => {
+   async login(user) {
+       let data = await $.post('/login', user)//.then((data) => {
+            // console.log(data);
             if (data) {
                 this.userConnected = true;
                 this.user = data
-                return { user: data, isNew: false };
+                return this.user
             }
             else {
-                $.post('/register', user).then((data) => {
+                // console.log(user)
+               let newUser =await $.post('/register', user)//.then((newUser) => {
+                    console.log(newUser);
                     this.userConnected = true;
-                    this.user = data
-                    return { user: data, isNew: true };
-                });
+                    this.user = newUser
+                    let isNew = true;
+                    return newUser
+                // });
             }
-        })
+        // }/)
     }
 
-    newStory() {
-        $.post('/newStory', this.user, (storyId) => {
-            return {storyId: storyId, user: this.user}
-        })
+    async newStory() {
+        debugger;
+        let storyId = await $.post('/newStory', this.user)//.then((storyId) => {
+        // })
+        return {storyId: storyId, user: this.user}
     }
 
     saveSentence(sentence, thisStory) {
@@ -33,3 +38,5 @@ class DataManager {
         })
     }
 }
+
+export default DataManager;
