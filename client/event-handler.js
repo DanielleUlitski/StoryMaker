@@ -37,7 +37,7 @@ class Eventhandler {
     }
 
     sendInvite() {
-        $("#send-invite-btn").on('click', () => {
+        $("body").on('click', "#send-invite-btn", () => {
             let username = $("#invite-username").val();
             this.socket.emit('sendinvite', username, this.storyId)
         })
