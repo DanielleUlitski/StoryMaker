@@ -29,15 +29,14 @@ class Eventhandler {
     newStory() {
         $('#new-story').on('click', async () => {
             let newRoomInfo = await this.datamanager.newStory();
-            debugger;
             this.storyId = newRoomInfo.storyId;
             this.socket.emit('makeRoom', this.storyId);
-            this.renderer.renderNewStory(this.storyId);
+            this.renderer.renderNewStory(this.storyId, newRoomInfo.user);
         })
     }
 
     sendInvite() {
-        $("body").on('click', "#send-invite-btn", () => {
+        $("#send-invite-btn").on('click', () => {
             let username = $("#invite-username").val();
             this.socket.emit('sendinvite', username, this.storyId)
         })
@@ -58,6 +57,7 @@ class Eventhandler {
 
     acceptInvite() {
         this.socket.on('roomJoined', (story) => {
+            this.renderer.renderNewStory(story._id);
             this.renderer.renderStory(story);
         })
         $('#accept-invite').on('click', () => {
@@ -68,8 +68,17 @@ class Eventhandler {
     }
 
     sentenceHandle() {
-        $('#send-sentence').on('click', () => {
-
+        this.socket.on('updateSentence', (data) => {
+            debugger;
+            this.renderer.renderStory(data);
+        })
+        $('#main-screen').on('click', "#send-sentence", () => {
+            let sentence = $('#sentence-input').val();
+            let storyId = $('#story-container').data('id')
+            // this.datamanager.saveSentence(sentence, storyId).then((story)=>{
+            //     this.renderer.renderStory(story)
+            // })
+            this.socket.emit('sentence', sentence, storyId);            
         })
     }
 }

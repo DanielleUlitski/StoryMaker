@@ -32,11 +32,9 @@ class DataManager {
         return {storyId: storyId, user: this.user}
     }
 
-    saveSentence(sentence, thisStory) {
-        $.post('/newSentence', {}, () => {
-
-        })
-    }
+    // async saveSentence(sentence, storyId) {
+    //     return await $.post('/newSentence', {sentence: sentence, story: storyId})
+    // }
 }
 
 export default DataManager;

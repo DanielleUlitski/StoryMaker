@@ -12,7 +12,6 @@ app.use(express.static(path.join(__dirname, 'node_modules')))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(router)
 
-const sentence = require('./modules/sentenceModule');
 const user = require('./modules/userModule');
 const story = require('./modules/storyModule');
 const users = [];
@@ -80,11 +79,15 @@ io.sockets.on('connection', function (socket) {
         socket.leaveAll();
         socket.join(newRoom)
         socket.room = newRoom
+        console.log(socket.room);
         let userIndex = findWithAttr(users, 'username', socket.username)
-        story.find({ "_id": newRoom }, (err, data) => {
+        story.findOne({ "_id": newRoom }, (err, data) => {
             if (err) throw new Error(err);
             data.users.push(users[userIndex].userId)
-            socket.emit('roomJoined', data);
+            data.save();
+        }).populate('users').exec((err, story) => {
+            if (err) throw new Error(err);
+            socket.emit('roomJoined', story);
         })
     })
 
@@ -98,5 +101,13 @@ io.sockets.on('connection', function (socket) {
     socket.on('sendinvite', (username, roomId) => {
         let socketId = users[findWithAttr(users, 'username', username)].session;
         io.to(`${socketId}`).emit('invite', roomId, socket.username)
+    })
+
+    socket.on('sentence', (sentence, storyId) => {
+        story.findOne({ "_id": storyId }, (err, data)=>{
+            data.sentences.push({text: sentence, image: ""});
+            data.save()
+            io.sockets.in(storyId).emit('updateSentence', data);
+        })
     })
 });

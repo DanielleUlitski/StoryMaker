@@ -77,8 +77,55 @@
         {{/each}}
     </script>
 
+    <script id="users-template" type="text/x-handlebars-template">
+        {{#each users}}
+            <p class="nav-item">{{name}}</p>
+        {{/each}}
+    </script>
+
+    <script id="sentence-template" type="text/x-handlebars-template">
+        {{#each sentences}}
+            <div class="user-sentence">
+                <p class="sentence">{{name}}: {{text}}</p>
+                <img src="{{image}}">
+            </div>
+        {{/each}}
+    </script>
+
+    <div class="modal" tabindex="-1" role="dialog" id="send-invite-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Invite a friend</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="input-group mb-3" id="invite-form">
+                        <input type="text" id="invite-username">
+                        <button type="button" class="btn btn-outline-success" id="send-invite-btn">Invite</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script id="new-story-template" type="text/x-handlebars-template">
-        <iframe src="./newStory/index.html" data-id="{{id}}"></iframe>
+        <div id="story-container" data-id={{id}}>
+            <div id="story-screen"></div> <!-- sentence-template -->
+            <div id="story-nav-bar">
+                <button type="button" class="btn btn-outline-secondary" id="send-invite" data-toggle="modal" data-target="#send-invite-modal">invite</button>
+                <button type="button" class="btn btn-outline-success" id="save-story">save</button>
+                <div id="users-list"></div> <!-- user-template -->
+            </div>
+    
+            <div id="add-sentence-form">
+                <input type="text" id="sentence-input">
+                <button type="button" class="btn btn-outline-success" id="send-sentence">send</button>
+            </div>
+        </div>        
     </script>
 
     <script src=".\jquery\dist\jquery.js">  </script>

@@ -3,7 +3,7 @@ const sentence = require('./sentenceModule');
 const user = require('./userModule');
 
 const StorySchema = new mongoose.Schema({
-    sentences: [{type: mongoose.Schema.Types.ObjectId, ref: 'Sentence'}],
+    sentences: [{text: String, image: String}],
     users: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 });
 

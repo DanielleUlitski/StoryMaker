@@ -50,7 +50,17 @@ router.get('/thisStory/:id', (req, res) => {
 })
 
 router.post('/saveStory', (req, res) => {
-    
+
 })
+
+// router.post("/newSentence", (req, res) => {
+//     story.findById(req.body.story, (err, data) => {
+//         if(err) res.send(err);
+//         data.sentences.push(req.body.sentence)
+//         data.save();
+//     }).populate('users sentences').exec((err, story)=>{
+//         res.send(story);
+//     })
+// })
 
 module.exports = router
