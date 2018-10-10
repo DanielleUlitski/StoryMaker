@@ -35,12 +35,8 @@ class Eventhandler {
 
     sentenceHandle() {
         $('#send-sentence').on('click', () => {
-            
-        })
-    }
 
-    printSocket() {
-        console.log(this.socket);
+        })
     }
 }
 
