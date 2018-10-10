@@ -11,21 +11,6 @@
 </head>
 
 <body>
-    <!-- <div id="story-container">
-        <div class="text-center" id="users-list"></div>
-        <div class="">
-            <button type="button" class="btn btn-outline-secondary header-item" id="send-invite" data-toggle="modal" data-target="#send-invite-modal">invite</button>
-            <button type="button" class="btn btn-outline-success header-item" id="save-story">save</button>
-        </div>
-        <div class="story-body">
-            <div id="story-screen"></div>
-            <div class="input-group mb-3" id="add-sentence-form">
-                <input type="text" class="form-control" id="sentence-input">
-                <button type="button" class="btn btn-outline-success" id="send-sentence">send</button>
-            </div>
-        </div>
-    </div> -->
-
     <div id="story-container">
         <div id="story-screen"></div> <!-- sentence-template -->
         <div id="story-nav-bar">
@@ -33,8 +18,9 @@
             <button type="button" class="btn btn-outline-success" id="save-story">save</button>
             <div id="users-list"></div> <!-- user-template -->
         </div>
-        <div class="input-group mb-3" id="add-sentence-form">
-            <input type="text" class="form-control" id="sentence-input">
+
+        <div id="add-sentence-form">
+            <input type="text" id="sentence-input">
             <button type="button" class="btn btn-outline-success" id="send-sentence">send</button>
         </div>
     </div>
@@ -54,6 +40,23 @@
                         <input type="text" id="invite-username">
                         <button type="button" class="btn btn-outline-success" id="send-invite-btn">Invite</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="receive-invite-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="invite-modal-title">You were invited</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" id="accept-invite">accept</button>
+                    <button type="button" class="btn btn-outline-danger" id="decline-invite">decline</button>
                 </div>
             </div>
         </div>
