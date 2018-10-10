@@ -15,7 +15,8 @@ class Renderer {
     renderNewStory(id) {
         const template = Handlebars.compile(this.$newStoryTemplate);
         const newHTML = template({id});
-        $('#main-sceen').empty().append(newHTML);
+        console.log(newHTML);
+        $('#main-screen').empty().append(newHTML);
     }
 
     renderStory(sentences) {
