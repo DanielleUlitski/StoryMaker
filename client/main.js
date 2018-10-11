@@ -15,3 +15,6 @@ eventHandler.declineInvite();
 eventHandler.acceptInvite();
 eventHandler.sentenceHandle();
 eventHandler.submitOnEnter();
+eventHandler.saveStory()
+eventHandler.finishStory()
+eventHandler.leaveStory()

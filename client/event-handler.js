@@ -123,7 +123,7 @@ class Eventhandler {
             this.socket.emit('saveStory', this.storyId);
             this.socket.emit('leaveRoom');
         })
-        $('#main-screen').on('click', '#', () => {
+        $('#main-screen').on('click', '#finish-story', () => {
             this.socket.emit('saveStory', this.storyId);
             this.socket.emit('finishStory', this.storyId);
         })
@@ -133,7 +133,7 @@ class Eventhandler {
         this.socket.on('returnToLobby', () => {
             this.renderer.renderLobby();
         })
-        $('#main-screen').on('click', '#', () => {
+        $('#main-screen').on('click', '#leave-story', () => {
             this.socket.emit('leaveRoom');
         })
     }
