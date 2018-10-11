@@ -1,5 +1,3 @@
-import { runInThisContext } from "vm";
-
 class Eventhandler {
     constructor(datamanager, renderer) {
         this.datamanager = datamanager;
