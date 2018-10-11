@@ -34,7 +34,9 @@ class Eventhandler {
     sendInvite() {
         $("#send-invite-btn").on('click', () => {
             let username = $("#invite-username").val();
-            this.socket.emit('sendinvite', username, this.storyId)
+            this.socket.emit('sendinvite', username, this.storyId);
+            $("#invite-username").val('');
+            $('#send-invite-modal').modal('hide');
         })
     }
 
@@ -48,6 +50,7 @@ class Eventhandler {
     declineInvite() {
         $('#decline-invite').on('click', () => {
             this.roomInvite = null;
+            $('#receive-invite-modal').modal('hide');
         })
     }
 
@@ -55,6 +58,7 @@ class Eventhandler {
         this.socket.on('roomJoined', (story) => {
             this.renderer.renderNewStory(story._id);
             this.renderer.renderStory(story);
+            $('#receive-invite-modal').modal('hide');
         })
         $('#accept-invite').on('click', () => {
             this.socket.emit('joinRoom', this.roomInvite);
@@ -74,6 +78,29 @@ class Eventhandler {
             let storyId = $('#story-container').data('id');
             // let image = await $.get(`https://www.googleapis.com/customsearch/v1?key=AIzaSyC70YzagFxuujLqGjyE16e2NjG-sy5ivl8&cx=014991769965957097369:ffltd_cexyk&q=${sentence}&searchType=Image`)
             this.socket.emit('sentence', sentence, storyId);      
+        })
+    }
+
+    submitOnEnter() {
+        $('#main-screen').on('keyup', '#sentence-input', (event) => {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                $('#send-sentence').click();
+            }
+        })
+
+        $('#username').on('keyup', (event) => {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                $('#login-btn-modal').click();
+            }
+        })
+
+        $('#invite-username').on('keyup', (event) => {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                $('#send-invite-btn').click();
+            }           
         })
     }
 }

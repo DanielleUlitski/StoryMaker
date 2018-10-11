@@ -14,3 +14,4 @@ eventHandler.recieveInvite();
 eventHandler.declineInvite();
 eventHandler.acceptInvite();
 eventHandler.sentenceHandle();
+eventHandler.submitOnEnter();

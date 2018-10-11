@@ -70,12 +70,12 @@
     background-color: #dff1f7;
     display: grid;
     grid-template-columns: 6fr 1fr;
-    grid-template-rows: 7fr 1fr;
+    grid-template-rows: 6fr 1fr;
     grid-template-areas:
     "ss sn"
     "si sn";
-    grid-column-gap: 10px;
-    height: 100vh;
+    grid-column-gap: 20px;
+    height: 85vh;
 }
 
 #story-screen {
@@ -83,12 +83,18 @@
     margin-bottom: 20px;
     border: 1px solid black;
     border-radius: 10px;
+    padding: 10px;
 }
 
 #story-nav-bar {
     grid-area: sn;
     display: flex;
     flex-direction: column;
+}
+
+#send-invite, #save-story {
+    width: 100px;
+    margin: 10px;
 }
 
 #add-sentence-form {
