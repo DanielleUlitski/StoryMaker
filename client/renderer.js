@@ -13,21 +13,21 @@ class Renderer {
     }
 
     renderNewStory(id, user) {
-        this.renderUsers([user])
         const template = Handlebars.compile(this.$newStoryTemplate);
         const newHTML = template({id});
         console.log(newHTML);
         $('#main-screen').empty().append(newHTML);
+        this.renderUsers([user])
     }
 
     renderStory(story) {
         console.log(story);
-        this.renderUsers(story.users);
         const template = Handlebars.compile(this.$sentenceTemplate);
         let sentences = story.sentences;
         const newHTML = template({sentences});
         $('#story-screen').empty().append(newHTML);
         $('#sentence-input').val('');
+        this.renderUsers(story.users);
     }
 
     renderAllStories(stories) {
