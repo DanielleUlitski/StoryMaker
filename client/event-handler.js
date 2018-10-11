@@ -1,3 +1,5 @@
+import { runInThisContext } from "vm";
+
 class Eventhandler {
     constructor(datamanager, renderer) {
         this.datamanager = datamanager;
@@ -71,12 +73,20 @@ class Eventhandler {
         this.socket.on('updateSentence', (data) => {
             debugger;
             this.renderer.renderStory(data);
+            if (data.users[0].name != this.datamanager.user.name) {
+                this.renderer.renderHideFinish();
+            }
         })
         $('#main-screen').on('click', "#send-sentence", async () => {
             let sentence = $('#sentence-input').val();
             let storyId = $('#story-container').data('id');
             let image = await $.get(`https://www.googleapis.com/customsearch/v1?key=AIzaSyC70YzagFxuujLqGjyE16e2NjG-sy5ivl8&cx=014991769965957097369:idopkmpkkbo&q=${sentence}&?searchType=Image&defaultToImageSearch=true&safe=active`)
-            let iamgeUrl = image.items[0].pagemap.cse_image[0].src
+            let iamgeUrl;
+            if (image.items[0].pagemap.imageobject) {
+                iamgeUrl = image.items[0].pagemap.imageobject[0].thumbnailurl;
+            } else {
+                iamgeUrl = image.items[0].pagemap.cse_image[0].src;
+            }
             this.socket.emit('sentence', { sentence: sentence, image: iamgeUrl }, storyId);
         })
     }
@@ -101,6 +111,32 @@ class Eventhandler {
             if (event.keyCode === 13) {
                 $('#send-invite-btn').click();
             }
+        })
+    }
+
+    saveStory() {
+        $("#main-screen").on('click', '#save-story', () => {
+            this.socket.emit('saveStory', this.storyId);
+        })
+    }
+
+    finishStory() {
+        this.socket.on('storyFinished', () => {
+            this.socket.emit('saveStory', this.storyId);
+            this.socket.emit('leaveRoom');
+        })
+        $('#main-screen').on('click', '#', () => {
+            this.socket.emit('saveStory', this.storyId);
+            this.socket.emit('finishStory', this.storyId);
+        })
+    }
+
+    leaveStory() {
+        this.socket.on('returnToLobby', () => {
+            this.renderer.renderLobby();
+        })
+        $('#main-screen').on('click', '#', () => {
+            this.socket.emit('leaveRoom');
         })
     }
 }

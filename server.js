@@ -76,20 +76,21 @@ io.sockets.on('connection', function (socket) {
             data.users.push(users[userIndex].userId)
             data.save();
             // console.log(data);
-        }).then(() => {
             story.findOne({ '_id': newRoom }).populate('users').exec((err, story) => {
                 if (err) throw new Error(err);
-                // console.log(story);
+                console.log(story);
                 io.sockets.in(newRoom).emit('roomJoined', story);
             })
         })
     })
 
     socket.on('finishStory', (thisStory) => {
+        io.sockets.to(thisStory).emit('storyFinished')
         socket.leaveAll();
         socket.join('Lobby');
         socket.room = 'Lobby'
         rooms.splice(rooms.indexOf(thisStory), 1);
+        socket.emit('returnToLobby');
     })
 
     socket.on('sendinvite', (username, roomId) => {
@@ -107,5 +108,27 @@ io.sockets.on('connection', function (socket) {
                 io.sockets.in(storyId).emit('updateSentence', res);
             })
         })
+    })
+
+    socket.on('saveStory', (storyId) => {
+        user.find({ 'name': socket.username }, (err, user) => {
+            if (err) throw new Error(err);
+            if (!user.stories.includes(storyId)) {
+                user.stories.push(storyId);
+                user.save();
+            }
+        })
+    })
+
+    socket.on('leaveRoom', (storyId, userId) => {
+        story.find({ "_id": storyId }, (err, thisStory) => {
+            if (err) throw new Error(err);
+            thisStory.users.splice(thisStory.users.indexOf(userId), 1);
+            thisStory.save();
+        })
+        socket.leaveAll();
+        socket.join('Lobby');
+        socket.room = 'Lobby';
+        socket.emit('returnToLobby');
     })
 });
