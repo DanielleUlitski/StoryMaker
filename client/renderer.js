@@ -51,6 +51,12 @@ class Renderer {
     renderHideFinish() {
         $('#finish-story').css('display', "none");
     }
+
+    renderLobby() {
+        $('#main-screen').empty().append(`<h1>Create your story!</h1>
+        <p>Log in and start a new story, or wait for an invite from a friend.</p>
+        <p>With StoryMaker you can finally get a funny comics matched to your stories.</p>`);
+    }
 }
 
 export default Renderer;
