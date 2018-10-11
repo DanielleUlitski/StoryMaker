@@ -18,3 +18,4 @@ eventHandler.submitOnEnter();
 eventHandler.saveStory()
 eventHandler.finishStory()
 eventHandler.leaveStory()
+eventHandler.viewAllStories();

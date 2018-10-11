@@ -41,7 +41,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('disconnect', () => {
         delete usernames[socket.username]
         socket.leaveAll();
-        console.log('disconnected');
+        // console.log('disconnected');
     })
 
     socket.on('login', (user, sessionId) => {
@@ -54,7 +54,7 @@ io.sockets.on('connection', function (socket) {
         usernames[user.name] = user.name;
         socket.room = 'Lobby'
         socket.join('Lobby')
-        console.log(socket.room);
+        // console.log(socket.room);
     })
 
     socket.on('makeRoom', (newRoom) => {
@@ -62,7 +62,7 @@ io.sockets.on('connection', function (socket) {
         rooms.push(newRoom)
         socket.join(newRoom)
         socket.room = newRoom
-        console.log(socket.room);
+        // console.log(socket.room);
     })
 
     socket.on('joinRoom', (newRoom) => {
@@ -78,7 +78,7 @@ io.sockets.on('connection', function (socket) {
             // console.log(data);
             story.findOne({ '_id': newRoom }).populate('users').exec((err, story) => {
                 if (err) throw new Error(err);
-                console.log(story);
+                // console.log(story);
                 io.sockets.in(newRoom).emit('roomJoined', story);
             })
         })
@@ -104,24 +104,26 @@ io.sockets.on('connection', function (socket) {
             data.save()
         }).then(() => {
             story.findOne({ '_id': storyId }).populate('users').exec((err, res) => {
-                console.log(res)
+                // console.log(res)
                 io.sockets.in(storyId).emit('updateSentence', res);
             })
         })
     })
 
     socket.on('saveStory', (storyId) => {
-        user.find({ 'name': socket.username }, (err, user) => {
+        user.findOne({ 'name': socket.username }, (err, user) => {
             if (err) throw new Error(err);
-            if (!user.stories.includes(storyId)) {
+            if (user.stories.indexOf(storyId) == -1) {
+                // console.log(user.stories)
                 user.stories.push(storyId);
+                // console.log(user.stories)
                 user.save();
             }
         })
     })
 
     socket.on('leaveRoom', (storyId, userId) => {
-        story.find({ "_id": storyId }, (err, thisStory) => {
+        story.findOne({ "_id": storyId }, (err, thisStory) => {
             if (err) throw new Error(err);
             thisStory.users.splice(thisStory.users.indexOf(userId), 1);
             thisStory.save();
@@ -130,5 +132,11 @@ io.sockets.on('connection', function (socket) {
         socket.join('Lobby');
         socket.room = 'Lobby';
         socket.emit('returnToLobby');
+    })
+
+    socket.on('getAllStories', () => {
+        user.findOne({ 'name': socket.username }).populate('stories').exec((err, res) => {
+            socket.emit('gotAllStories', res.stories);
+        })
     })
 });
