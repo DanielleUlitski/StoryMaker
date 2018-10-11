@@ -27,7 +27,7 @@ router.post('/register', (req, res) => {
         if (err) res.send(err);
         if (data.length > 0) { res.send('this user name is taken') }
         else {
-            let newUser = new user({ name: req.body.name });
+            let newUser = new user({ name: req.body.name, stories:[] });
             newUser.save();
             console.log(newUser);
             res.send(newUser);
@@ -49,8 +49,5 @@ router.get('/thisStory/:id', (req, res) => {
     })
 })
 
-router.post('/saveStory', (req, res) => {
-
-})
 
 module.exports = router

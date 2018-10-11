@@ -47,6 +47,10 @@ class Renderer {
         $('#invite-modal-title').html(`You were invited by ${username}!`);
         $('#receive-invite-modal').modal('toggle');
     }
+
+    renderHideFinish() {
+        $('#finish-story').css('display', "none");
+    }
 }
 
 export default Renderer;

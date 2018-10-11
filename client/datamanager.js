@@ -22,9 +22,12 @@ class DataManager {
     }
 
     async newStory() {
-        debugger;
         let storyId = await $.post('/newStory', this.user)
         return {storyId: storyId, user: this.user}
+    }
+
+    saveStory() {
+        
     }
 }
 
