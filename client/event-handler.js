@@ -74,10 +74,10 @@ class Eventhandler {
         })
         $('#main-screen').on('click', "#send-sentence", async () => {
             let sentence = $('#sentence-input').val();
-            $('#sentence-input').val('');
             let storyId = $('#story-container').data('id');
-            // let image = await $.get(`https://www.googleapis.com/customsearch/v1?key=AIzaSyC70YzagFxuujLqGjyE16e2NjG-sy5ivl8&cx=014991769965957097369:ffltd_cexyk&q=${sentence}&searchType=Image`)
-            this.socket.emit('sentence', sentence, storyId);      
+            let image = await $.get(`https://www.googleapis.com/customsearch/v1?key=AIzaSyC70YzagFxuujLqGjyE16e2NjG-sy5ivl8&cx=014991769965957097369:idopkmpkkbo&q=${sentence}&?searchType=Image&defaultToImageSearch=true&safe=active`)
+            let iamgeUrl = image.items[0].pagemap.cse_image[0].src
+            this.socket.emit('sentence', { sentence: sentence, image: iamgeUrl }, storyId);
         })
     }
 
@@ -100,7 +100,7 @@ class Eventhandler {
             event.preventDefault();
             if (event.keyCode === 13) {
                 $('#send-invite-btn').click();
-            }           
+            }
         })
     }
 }
