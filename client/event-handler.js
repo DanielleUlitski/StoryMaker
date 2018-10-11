@@ -78,14 +78,14 @@ class Eventhandler {
         $('#main-screen').on('click', "#send-sentence", async () => {
             let sentence = $('#sentence-input').val();
             let storyId = $('#story-container').data('id');
-            let image = await $.get(`https://www.googleapis.com/customsearch/v1?key=AIzaSyC70YzagFxuujLqGjyE16e2NjG-sy5ivl8&cx=014991769965957097369:idopkmpkkbo&q=${sentence}&?searchType=Image&defaultToImageSearch=true&safe=active`)
-            let iamgeUrl;
+            let image = await $.get(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDVqejbjzEgB2bLbLURYyjuuuy4kc4oxvI&cx=014991769965957097369:idopkmpkkbo&q=${sentence}&?searchType=Image&defaultToImageSearch=true&safe=active`)
+            let imageUrl;
             if (image.items[0].pagemap.imageobject) {
-                iamgeUrl = image.items[0].pagemap.imageobject[0].thumbnailurl;
+                imageUrl = image.items[0].pagemap.imageobject[0].thumbnailurl;
             } else {
-                iamgeUrl = image.items[0].pagemap.cse_image[0].src;
+                imageUrl = image.items[0].pagemap.cse_image[0].src;
             }
-            this.socket.emit('sentence', { sentence: sentence, image: iamgeUrl }, storyId);
+            this.socket.emit('sentence', { sentence: sentence, image: imageUrl }, storyId);
         })
     }
 
@@ -121,7 +121,7 @@ class Eventhandler {
     finishStory() {
         this.socket.on('storyFinished', () => {
             this.socket.emit('saveStory', this.storyId);
-            this.socket.emit('leaveRoom');
+            this.socket.emit('leaveRoom', this.storyId, this.datamanager.user._id);
         })
         $('#main-screen').on('click', '#finish-story', () => {
             this.socket.emit('saveStory', this.storyId);
@@ -134,7 +134,23 @@ class Eventhandler {
             this.renderer.renderLobby();
         })
         $('#main-screen').on('click', '#leave-story', () => {
-            this.socket.emit('leaveRoom');
+            this.socket.emit('leaveRoom', this.storyId, this.datamanager.user._id);
+        })
+    }
+
+    viewAllStories() {
+        this.socket.on('gotAllStories', (stories) => {
+            console.log(stories);
+            this.renderer.renderAllStories(stories)
+        })
+        $('#show-stories').on('click', () => {
+            this.socket.emit('getAllStories');
+        })
+    }
+
+    home() {
+        $('#home').on('click', () => {
+            this.renderer.renderLobby();
         })
     }
 }
