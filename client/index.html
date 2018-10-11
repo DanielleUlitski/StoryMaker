@@ -13,6 +13,7 @@
 <body>
     <div class="container">
         <div class="nav-bar text-center">
+            <button type="button" class="nav-item btn btn-outline-secondary" id="home" disabled>home</button>
             <button type="button" class="nav-item btn btn-outline-secondary" id="new-story" disabled>new story</button>
             <button type="button" class="nav-item btn btn-outline-secondary" id="show-stories" disabled>my stories</button>
         </div>
@@ -115,10 +116,10 @@
         <div id="story-container" data-id={{id}}>
             <div id="story-screen"></div>
             <div id="story-nav-bar">
-                <button type="button" class="btn btn-outline-secondary" id="send-invite" data-toggle="modal" data-target="#send-invite-modal">invite</button>
-                <button type="button" class="btn btn-outline-danger" id="leave-story">leave</button>
-                <button type="button" class="btn btn-outline-success" id="save-story">save</button>
-                <button type="button" class="btn btn-outline-success" id="finish-story">finish</button>
+                <button type="button" class="btn btn-outline-secondary story-btn" id="send-invite" data-toggle="modal" data-target="#send-invite-modal">invite</button>
+                <button type="button" class="btn btn-outline-danger story-btn" id="leave-story">leave</button>
+                <button type="button" class="btn btn-outline-success story-btn" id="save-story">save</button>
+                <button type="button" class="btn btn-outline-success story-btn" id="finish-story">finish</button>
                 <div id="users-list"></div>
             </div>
     

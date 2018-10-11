@@ -41,6 +41,7 @@ class Renderer {
         $('.header').empty().append(`<span class='header-item'> Hi ${username}</span>`);
         $('#new-story').removeAttr('disabled');
         $('#show-stories').removeAttr('disabled');
+        $('#home').removeAttr('disabled');
     }
 
     renderInvite(username) {
