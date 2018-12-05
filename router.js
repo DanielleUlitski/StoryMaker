@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const express = require('express');
 const router = express();
 
-mongoose.connect('mongodb://localhost:27017/storymakerdb', (err) => {
+mongoose.connect(process.env.LINKDB, (err) => {
     if (err) console.log(err);
     console.log('connection established')
 });

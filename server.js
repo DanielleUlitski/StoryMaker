@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
-const server = app.listen(8000);
+const server = app.listen(process.env.PORT || 8080);
 const io = require('socket.io').listen(server);
 const router = require('./router');
 
