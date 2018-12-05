@@ -3,8 +3,8 @@ const express = require('express');
 const router = express();
 
 mongoose.connect(process.env.LINKDB, (err) => {
-    if (err) console.log(err);
-    console.log('connection established')
+    if (err) console.error(err);
+    else console.log('connection established');
 });
 
 const user = require('./modules/userModule');
@@ -27,7 +27,7 @@ router.post('/register', (req, res) => {
         if (err) res.send(err);
         if (data.length > 0) { res.send('this user name is taken') }
         else {
-            let newUser = new user({ name: req.body.name, stories:[] });
+            let newUser = new user({ name: req.body.name, stories: [] });
             newUser.save();
             console.log(newUser);
             res.send(newUser);

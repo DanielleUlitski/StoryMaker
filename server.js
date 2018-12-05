@@ -94,8 +94,12 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('sendinvite', (username, roomId) => {
-        let socketId = users[findWithAttr(users, 'username', username)].session;
-        io.to(`${socketId}`).emit('invite', roomId, socket.username)
+        if (socket.username === username) {
+            socket.emit('inviteYourself');
+        } else {
+            let socketId = users[findWithAttr(users, 'username', username)].session;
+            io.to(`${socketId}`).emit('invite', roomId, socket.username)
+        }
     })
 
     socket.on('sentence', (line, storyId) => {
